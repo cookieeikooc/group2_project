@@ -1,7 +1,1 @@
-<<<<<<< HEAD
-Bing, 
-Mino
-Kevin
-=======
 Bing, Mino, Kevin
->>>>>>> 9259299 (myname.txt)
