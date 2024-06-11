@@ -1,12 +1,28 @@
+import sys
+import time
+import random
+from enum import Enum
+import pygame
+from pygame.locals import *
+
+# Constants
+BLOCK_WIDTH = 10  # Adjust the width as necessary
+BLOCK_HEIGHT = 10  # Adjust the height as necessary
+SIZE = 20  # Adjust the block size as necessary
+MINE_COUNT = 10  # Adjust the mine count as necessary
+SCREEN_WIDTH = BLOCK_WIDTH * SIZE
+SCREEN_HEIGHT = (BLOCK_HEIGHT + 2) * SIZE
+
 class BlockStatus(Enum):
-    normal = 1  # not click
-    opened = 2  # click
+    normal = 1  # not clicked
+    opened = 2  # clicked
     mine = 3    # bomb
     flag = 4    # bomb mark
-    ask = 5   # question mark
+    ask = 5     # question mark
     bomb = 6    # hit the bomb
     hint = 7    # neighbor has bomb
     double = 8  # being clicked twice
+
 class Mine:
     def __init__(self, x, y, value=0):
         self._x = x
@@ -15,73 +31,83 @@ class Mine:
         self._around_mine_count = -1
         self._status = BlockStatus.normal
         self.set_value(value)
+    
     def __repr__(self):
         return str(self._value)
-    def get_x(self):
+    
+    @property
+    def x(self):
         return self._x
-    def set_x(self, x):
+    
+    @x.setter
+    def x(self, x):
         self._x = x
-    x = property(fget=get_x, fset=set_x)
-    def get_y(self):
+    
+    @property
+    def y(self):
         return self._y
-    def set_y(self, y):
+    
+    @y.setter
+    def y(self, y):
         self._y = y
-    y = property(fget=get_y, fset=set_y)
-    def get_value(self):
+    
+    @property
+    def value(self):
         return self._value
-    def set_value(self, value):
-        if value:
-            self._value = 1
-        else:
-            self._value = 0
-    value = property(fget=get_value, fset=set_value, doc='0:非地雷 1:雷')
-    def get_around_mine_count(self):
+    
+    @value.setter
+    def value(self, value):
+        self._value = 1 if value else 0
+    
+    @property
+    def around_mine_count(self):
         return self._around_mine_count
-    def set_around_mine_count(self, around_mine_count):
+    
+    @around_mine_count.setter
+    def around_mine_count(self, around_mine_count):
         self._around_mine_count = around_mine_count
-    around_mine_count = property(fget=get_around_mine_count, fset=set_around_mine_count, doc='四周地雷数量')
-    def get_status(self):
+    
+    @property
+    def status(self):
         return self._status
-    def set_status(self, value):
+    
+    @status.setter
+    def status(self, value):
         self._status = value
-    status = property(fget=get_status, fset=set_status, doc='BlockStatus')
+
 class MineBlock:
     def __init__(self):
         self._block = [[Mine(i, j) for i in range(BLOCK_WIDTH)] for j in range(BLOCK_HEIGHT)]
-        #set bomb
+        self._set_mines()
+    
+    def _set_mines(self):
         for i in random.sample(range(BLOCK_WIDTH * BLOCK_HEIGHT), MINE_COUNT):
             self._block[i // BLOCK_WIDTH][i % BLOCK_WIDTH].value = 1
-class MineBlock:
-　　def open_mine(self, x, y):
+    
+    def getmine(self, x, y):
+        return self._block[y][x]
+
+    def open_mine(self, x, y):
         # touch bomb
         if self._block[y][x].value:
             self._block[y][x].status = BlockStatus.bomb
             return False
         self._block[y][x].status = BlockStatus.opened
-        around = _get_around(x, y)
-        _sum = 0
-        for i, j in around:
-            if self._block[j][i].value:
-                _sum += 1
+        around = self._get_around(x, y)
+        _sum = sum(1 for i, j in around if self._block[j][i].value)
         self._block[y][x].around_mine_count = _sum
         if _sum == 0:
             for i, j in around:
                 if self._block[j][i].around_mine_count == -1:
                     self.open_mine(i, j)
         return True
-def _get_around(x, y):
-    return [(i, j) for i in range(max(0, x - 1), min(BLOCK_WIDTH - 1, x + 1) + 1)
-            for j in range(max(0, y - 1), min(BLOCK_HEIGHT - 1, y + 1) + 1) if i != x or j != y]
-class MineBlock:
+    
     def double_mouse_button_down(self, x, y):
         if self._block[y][x].around_mine_count == 0:
             return True
         self._block[y][x].status = BlockStatus.double
-        around = _get_around(x, y)
-        sumflag = 0 # num of marked bomb
-        for i, j in _get_around(x, y):
-            if self._block[j][i].status == BlockStatus.flag:
-                sumflag += 1
+        around = self._get_around(x, y)
+        sumflag = sum(1 for i, j in around if self._block[j][i].status == BlockStatus.flag)
         result = True
         if sumflag == self._block[y][x].around_mine_count:
             for i, j in around:
@@ -93,27 +119,27 @@ class MineBlock:
                 if self._block[j][i].status == BlockStatus.normal:
                     self._block[j][i].status = BlockStatus.hint
         return result
+    
     def double_mouse_button_up(self, x, y):
         self._block[y][x].status = BlockStatus.opened
-        for i, j in _get_around(x, y):
+        for i, j in self._get_around(x, y):
             if self._block[j][i].status == BlockStatus.hint:
                 self._block[j][i].status = BlockStatus.normal
-import sys
-import time
-from enum import Enum
-import pygame
-from pygame.locals import *
-from mineblock import *
-SCREEN_WIDTH = BLOCK_WIDTH * SIZE
-SCREEN_HEIGHT = (BLOCK_HEIGHT + 2) * SIZE
+    
+    def _get_around(self, x, y):
+        return [(i, j) for i in range(max(0, x - 1), min(BLOCK_WIDTH - 1, x + 1) + 1)
+                for j in range(max(0, y - 1), min(BLOCK_HEIGHT - 1, y + 1) + 1) if i != x or j != y]
+
 class GameStatus(Enum):
     readied = 1,
     started = 2,
     over = 3,
     win = 4
+
 def print_text(screen, font, x, y, text, fcolor=(255, 255, 255)):
     imgText = font.render(text, True, fcolor)
     screen.blit(imgText, (x, y))
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -122,61 +148,30 @@ def main():
     font1 = pygame.font.Font('resources/a.TTF', SIZE * 2)
     fwidth, fheight = font1.size('999')
     red = (200, 40, 40)
-    img0 = pygame.image.load('resources/0.bmp').convert()
-    img0 = pygame.transform.smoothscale(img0, (SIZE, SIZE))
-    img1 = pygame.image.load('resources/1.bmp').convert()
-    img1 = pygame.transform.smoothscale(img1, (SIZE, SIZE))
-    img2 = pygame.image.load('resources/2.bmp').convert()
-    img2 = pygame.transform.smoothscale(img2, (SIZE, SIZE))
-    img3 = pygame.image.load('resources/3.bmp').convert()
-    img3 = pygame.transform.smoothscale(img3, (SIZE, SIZE))
-    img4 = pygame.image.load('resources/4.bmp').convert()
-    img4 = pygame.transform.smoothscale(img4, (SIZE, SIZE))
-    img5 = pygame.image.load('resources/5.bmp').convert()
-    img5 = pygame.transform.smoothscale(img5, (SIZE, SIZE))
-    img6 = pygame.image.load('resources/6.bmp').convert()
-    img6 = pygame.transform.smoothscale(img6, (SIZE, SIZE))
-    img7 = pygame.image.load('resources/7.bmp').convert()
-    img7 = pygame.transform.smoothscale(img7, (SIZE, SIZE))
-    img8 = pygame.image.load('resources/8.bmp').convert()
-    img8 = pygame.transform.smoothscale(img8, (SIZE, SIZE))
-    img_blank = pygame.image.load('resources/blank.bmp').convert()
-    img_blank = pygame.transform.smoothscale(img_blank, (SIZE, SIZE))
-    img_flag = pygame.image.load('resources/flag.bmp').convert()
-    img_flag = pygame.transform.smoothscale(img_flag, (SIZE, SIZE))
-    img_ask = pygame.image.load('resources/ask.bmp').convert()
-    img_ask = pygame.transform.smoothscale(img_ask, (SIZE, SIZE))
-    img_mine = pygame.image.load('resources/mine.bmp').convert()
-    img_mine = pygame.transform.smoothscale(img_mine, (SIZE, SIZE))
-    img_blood = pygame.image.load('resources/blood.bmp').convert()
-    img_blood = pygame.transform.smoothscale(img_blood, (SIZE, SIZE))
-    img_error = pygame.image.load('resources/error.bmp').convert()
-    img_error = pygame.transform.smoothscale(img_error, (SIZE, SIZE))
+    
+    img_dict = {
+        i: pygame.transform.smoothscale(pygame.image.load(f'resources/{i}.bmp').convert(), (SIZE, SIZE)) for i in range(9)
+    }
+    
+    img_blank = pygame.transform.smoothscale(pygame.image.load('resources/blank.bmp').convert(), (SIZE, SIZE))
+    img_flag = pygame.transform.smoothscale(pygame.image.load('resources/flag.bmp').convert(), (SIZE, SIZE))
+    img_ask = pygame.transform.smoothscale(pygame.image.load('resources/ask.bmp').convert(), (SIZE, SIZE))
+    img_mine = pygame.transform.smoothscale(pygame.image.load('resources/mine.bmp').convert(), (SIZE, SIZE))
+    img_blood = pygame.transform.smoothscale(pygame.image.load('resources/blood.bmp').convert(), (SIZE, SIZE))
+    img_error = pygame.transform.smoothscale(pygame.image.load('resources/error.bmp').convert(), (SIZE, SIZE))
     face_size = int(SIZE * 1.25)
-    img_face_fail = pygame.image.load('resources/face_fail.bmp').convert()
-    img_face_fail = pygame.transform.smoothscale(img_face_fail, (face_size, face_size))
-    img_face_normal = pygame.image.load('resources/face_normal.bmp').convert()
-    img_face_normal = pygame.transform.smoothscale(img_face_normal, (face_size, face_size))
-    img_face_success = pygame.image.load('resources/face_success.bmp').convert()
-    img_face_success = pygame.transform.smoothscale(img_face_success, (face_size, face_size))
+    img_face_fail = pygame.transform.smoothscale(pygame.image.load('resources/face_fail.bmp').convert(), (face_size, face_size))
+    img_face_normal = pygame.transform.smoothscale(pygame.image.load('resources/face_normal.bmp').convert(), (face_size, face_size))
+    img_face_success = pygame.transform.smoothscale(pygame.image.load('resources/face_success.bmp').convert(), (face_size, face_size))
     face_pos_x = (SCREEN_WIDTH - face_size) // 2
     face_pos_y = (SIZE * 2 - face_size) // 2
-    img_dict = {
-        0: img0,
-        1: img1,
-        2: img2,
-        3: img3,
-        4: img4,
-        5: img5,
-        6: img6,
-        7: img7,
-        8: img8
-    }
+    
     bgcolor = (225, 225, 225)
     block = MineBlock()
     game_status = GameStatus.readied
     start_time = None
     elapsed_time = 0
+    
     while True:
         screen.fill(bgcolor)
         for event in pygame.event.get():
@@ -194,6 +189,10 @@ def main():
                             if not block.double_mouse_button_down(x, y):
                                 game_status = GameStatus.over
             elif event.type == MOUSEBUTTONUP:
+                mouse_x, mouse_y = event.pos
+                x = mouse_x // SIZE
+                y = mouse_y // SIZE - 2
+
                 if y < 0:
                     if face_pos_x <= mouse_x <= face_pos_x + face_size \
                             and face_pos_y <= mouse_y <= face_pos_y + face_size:
@@ -210,11 +209,11 @@ def main():
 
                 if game_status == GameStatus.started:
                     mine = block.getmine(x, y)
-                    if b1 and not b3:   
+                    if b1 and not b3:
                         if mine.status == BlockStatus.normal:
                             if not block.open_mine(x, y):
                                 game_status = GameStatus.over
-                    elif not b1 and b3: 
+                    elif not b1 and b3:
                         if mine.status == BlockStatus.normal:
                             mine.status = BlockStatus.flag
                         elif mine.status == BlockStatus.flag:
@@ -227,7 +226,7 @@ def main():
 
         flag_count = 0
         opened_count = 0
-        for row in block.block:
+        for row in block._block:
             for mine in row:
                 pos = (mine.x * SIZE, (mine.y + 2) * SIZE)
                 if mine.status == BlockStatus.opened:
@@ -243,25 +242,31 @@ def main():
                 elif mine.status == BlockStatus.ask:
                     screen.blit(img_ask, pos)
                 elif mine.status == BlockStatus.hint:
-                    screen.blit(img0, pos)
+                    screen.blit(img_blank, pos)
                 elif game_status == GameStatus.over and mine.value:
                     screen.blit(img_mine, pos)
                 elif mine.value == 0 and mine.status == BlockStatus.flag:
                     screen.blit(img_error, pos)
                 elif mine.status == BlockStatus.normal:
                     screen.blit(img_blank, pos)
+        
         print_text(screen, font1, 30, (SIZE * 2 - fheight) // 2 - 2, '%02d' % (MINE_COUNT - flag_count), red)
         if game_status == GameStatus.started:
             elapsed_time = int(time.time() - start_time)
         print_text(screen, font1, SCREEN_WIDTH - fwidth - 30, (SIZE * 2 - fheight) // 2 - 2, '%03d' % elapsed_time, red)
+        
         if flag_count + opened_count == BLOCK_WIDTH * BLOCK_HEIGHT:
             game_status = GameStatus.win
+        
         if game_status == GameStatus.over:
             screen.blit(img_face_fail, (face_pos_x, face_pos_y))
         elif game_status == GameStatus.win:
             screen.blit(img_face_success, (face_pos_x, face_pos_y))
         else:
             screen.blit(img_face_normal, (face_pos_x, face_pos_y))
+        
         pygame.display.update()
+
 if __name__ == '__main__':
     main()
+
