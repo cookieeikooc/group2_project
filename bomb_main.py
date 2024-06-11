@@ -106,3 +106,11 @@ from pygame.locals import *
 from mineblock import *
 SCREEN_WIDTH = BLOCK_WIDTH * SIZE
 SCREEN_HEIGHT = (BLOCK_HEIGHT + 2) * SIZE
+class GameStatus(Enum):
+    readied = 1,
+    started = 2,
+    over = 3,
+    win = 4
+def print_text(screen, font, x, y, text, fcolor=(255, 255, 255)):
+    imgText = font.render(text, True, fcolor)
+    screen.blit(imgText, (x, y))
