@@ -63,4 +63,9 @@ class MineBlock:
         for i, j in around:
             if self._block[j][i].value:
                 _sum += 1
-        self._block[y][x].around_mine_count = _sum  
+        self._block[y][x].around_mine_count = _sum
+        if _sum == 0:
+            for i, j in around:
+                if self._block[j][i].around_mine_count == -1:
+                    self.open_mine(i, j)
+        return True
