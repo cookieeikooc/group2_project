@@ -187,4 +187,43 @@ def main():
                 x = mouse_x // SIZE
                 y = mouse_y // SIZE - 2
                 b1, b2, b3 = pygame.mouse.get_pressed()
-                if game_status == GameStatus.started:    
+                if game_status == GameStatus.started:
+                    if b1 and b3:
+                        mine = block.getmine(x, y)
+                        if mine.status == BlockStatus.opened:
+                            if not block.double_mouse_button_down(x, y):
+                                game_status = GameStatus.over
+            elif event.type == MOUSEBUTTONUP:
+                if y < 0:
+                    if face_pos_x <= mouse_x <= face_pos_x + face_size \
+                            and face_pos_y <= mouse_y <= face_pos_y + face_size:
+                        game_status = GameStatus.readied
+                        block = MineBlock()
+                        start_time = time.time()
+                        elapsed_time = 0
+                        continue
+
+                if game_status == GameStatus.readied:
+                    game_status = GameStatus.started
+                    start_time = time.time()
+                    elapsed_time = 0
+
+                if game_status == GameStatus.started:
+                    mine = block.getmine(x, y)
+                    if b1 and not b3:   
+                        if mine.status == BlockStatus.normal:
+                            if not block.open_mine(x, y):
+                                game_status = GameStatus.over
+                    elif not b1 and b3: 
+                        if mine.status == BlockStatus.normal:
+                            mine.status = BlockStatus.flag
+                        elif mine.status == BlockStatus.flag:
+                            mine.status = BlockStatus.ask
+                        elif mine.status == BlockStatus.ask:
+                            mine.status = BlockStatus.normal
+                    elif b1 and b3:
+                        if mine.status == BlockStatus.double:
+                            block.double_mouse_button_up(x, y)
+
+        flag_count = 0
+        opened_count = 0
