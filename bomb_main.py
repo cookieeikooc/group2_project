@@ -98,3 +98,11 @@ class MineBlock:
         for i, j in _get_around(x, y):
             if self._block[j][i].status == BlockStatus.hint:
                 self._block[j][i].status = BlockStatus.normal
+import sys
+import time
+from enum import Enum
+import pygame
+from pygame.locals import *
+from mineblock import *
+SCREEN_WIDTH = BLOCK_WIDTH * SIZE
+SCREEN_HEIGHT = (BLOCK_HEIGHT + 2) * SIZE
