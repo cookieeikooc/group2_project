@@ -176,4 +176,15 @@ def main():
     block = MineBlock()
     game_status = GameStatus.readied
     start_time = None
-    elapsed_time = 0    
+    elapsed_time = 0
+    while True:
+        screen.fill(bgcolor)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                sys.exit()
+            elif event.type == MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = event.pos
+                x = mouse_x // SIZE
+                y = mouse_y // SIZE - 2
+                b1, b2, b3 = pygame.mouse.get_pressed()
+                if game_status == GameStatus.started:    
