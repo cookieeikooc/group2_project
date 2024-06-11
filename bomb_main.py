@@ -250,3 +250,18 @@ def main():
                     screen.blit(img_error, pos)
                 elif mine.status == BlockStatus.normal:
                     screen.blit(img_blank, pos)
+        print_text(screen, font1, 30, (SIZE * 2 - fheight) // 2 - 2, '%02d' % (MINE_COUNT - flag_count), red)
+        if game_status == GameStatus.started:
+            elapsed_time = int(time.time() - start_time)
+        print_text(screen, font1, SCREEN_WIDTH - fwidth - 30, (SIZE * 2 - fheight) // 2 - 2, '%03d' % elapsed_time, red)
+        if flag_count + opened_count == BLOCK_WIDTH * BLOCK_HEIGHT:
+            game_status = GameStatus.win
+        if game_status == GameStatus.over:
+            screen.blit(img_face_fail, (face_pos_x, face_pos_y))
+        elif game_status == GameStatus.win:
+            screen.blit(img_face_success, (face_pos_x, face_pos_y))
+        else:
+            screen.blit(img_face_normal, (face_pos_x, face_pos_y))
+        pygame.display.update()
+if __name__ == '__main__':
+    main()
