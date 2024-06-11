@@ -35,3 +35,13 @@ class Mine:
         else:
             self._value = 0
     value = property(fget=get_value, fset=set_value, doc='0:非地雷 1:雷')
+    def get_around_mine_count(self):
+        return self._around_mine_count
+    def set_around_mine_count(self, around_mine_count):
+        self._around_mine_count = around_mine_count
+    around_mine_count = property(fget=get_around_mine_count, fset=set_around_mine_count, doc='四周地雷数量')
+    def get_status(self):
+        return self._status
+    def set_status(self, value):
+        self._status = value
+    status = property(fget=get_status, fset=set_status, doc='BlockStatus')
