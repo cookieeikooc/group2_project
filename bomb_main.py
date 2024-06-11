@@ -227,3 +227,26 @@ def main():
 
         flag_count = 0
         opened_count = 0
+        for row in block.block:
+            for mine in row:
+                pos = (mine.x * SIZE, (mine.y + 2) * SIZE)
+                if mine.status == BlockStatus.opened:
+                    screen.blit(img_dict[mine.around_mine_count], pos)
+                    opened_count += 1
+                elif mine.status == BlockStatus.double:
+                    screen.blit(img_dict[mine.around_mine_count], pos)
+                elif mine.status == BlockStatus.bomb:
+                    screen.blit(img_blood, pos)
+                elif mine.status == BlockStatus.flag:
+                    screen.blit(img_flag, pos)
+                    flag_count += 1
+                elif mine.status == BlockStatus.ask:
+                    screen.blit(img_ask, pos)
+                elif mine.status == BlockStatus.hint:
+                    screen.blit(img0, pos)
+                elif game_status == GameStatus.over and mine.value:
+                    screen.blit(img_mine, pos)
+                elif mine.value == 0 and mine.status == BlockStatus.flag:
+                    screen.blit(img_error, pos)
+                elif mine.status == BlockStatus.normal:
+                    screen.blit(img_blank, pos)
