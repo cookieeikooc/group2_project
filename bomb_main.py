@@ -69,3 +69,6 @@ class MineBlock:
                 if self._block[j][i].around_mine_count == -1:
                     self.open_mine(i, j)
         return True
+def _get_around(x, y):
+    return [(i, j) for i in range(max(0, x - 1), min(BLOCK_WIDTH - 1, x + 1) + 1)
+            for j in range(max(0, y - 1), min(BLOCK_HEIGHT - 1, y + 1) + 1) if i != x or j != y]    
