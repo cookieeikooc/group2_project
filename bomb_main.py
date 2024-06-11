@@ -51,3 +51,10 @@ class MineBlock:
         #set bomb
         for i in random.sample(range(BLOCK_WIDTH * BLOCK_HEIGHT), MINE_COUNT):
             self._block[i // BLOCK_WIDTH][i % BLOCK_WIDTH].value = 1
+class MineBlock:
+　　def open_mine(self, x, y):
+        # touch bomb
+        if self._block[y][x].value:
+            self._block[y][x].status = BlockStatus.bomb
+            return False
+  
