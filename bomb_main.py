@@ -145,7 +145,7 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('扫雷')
 
-    font1 = pygame.font.Font('resources/a.TTF', SIZE * 2)
+    font1 = pygame.font.Font('No.019-Sounso-Quality-2.ttf', SIZE * 2)
     fwidth, fheight = font1.size('999')
     red = (200, 40, 40)
     
