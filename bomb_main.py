@@ -57,4 +57,10 @@ class MineBlock:
         if self._block[y][x].value:
             self._block[y][x].status = BlockStatus.bomb
             return False
-  
+        self._block[y][x].status = BlockStatus.opened
+        around = _get_around(x, y)
+        _sum = 0
+        for i, j in around:
+            if self._block[j][i].value:
+                _sum += 1
+        self._block[y][x].around_mine_count = _sum  
