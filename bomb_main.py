@@ -92,4 +92,9 @@ class MineBlock:
             for i, j in around:
                 if self._block[j][i].status == BlockStatus.normal:
                     self._block[j][i].status = BlockStatus.hint
-        return result        
+        return result
+    def double_mouse_button_up(self, x, y):
+        self._block[y][x].status = BlockStatus.opened
+        for i, j in _get_around(x, y):
+            if self._block[j][i].status == BlockStatus.hint:
+                self._block[j][i].status = BlockStatus.normal
