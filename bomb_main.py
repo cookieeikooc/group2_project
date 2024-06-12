@@ -50,7 +50,3 @@ class Mine:
     @y.setter               #write
     def y(self, y):
         self._y = y
-    
-    @property               #read
-    def value(self):
-        return self._value 
