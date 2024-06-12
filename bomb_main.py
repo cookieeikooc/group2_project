@@ -119,9 +119,3 @@ class MineTile:
                 if self._tile[j][i].status == TileStatus.idle:
                     self._tile[j][i].status = TileStatus.hint
         return result
-    
-    def double_mouse_button_up(self, x, y):
-        self._tile[y][x].status = TileStatus.clicked
-        for i, j in self._get_around(x, y):
-            if self._tile[j][i].status == TileStatus.hint:
-                self._tile[j][i].status = TileStatus.idle
