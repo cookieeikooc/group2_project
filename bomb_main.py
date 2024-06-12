@@ -35,11 +35,11 @@ class Mine:
     def __repr__(self):
         return str(self._value)
     
-    @property              #read
+    @property               #read
     def x(self):
         return self._x
     
-    @x.setter
+    @x.setter               #write
     def x(self, x):
         self._x = x
     
