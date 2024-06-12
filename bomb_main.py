@@ -136,7 +136,3 @@ class GameStatus(Enum):
     over = 3,
     win = 4
 
-def print_text(screen, font, x, y, text, fcolor=(255, 255, 255)):
-    imgText = font.render(text, True, fcolor)
-    screen.blit(imgText, (x, y))
-
