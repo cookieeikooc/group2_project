@@ -101,21 +101,3 @@ class MineTile:
                 if self._tile[j][i].around_mine_count == -1:
                     self.open_mine(i, j)
         return True
-    
-    def double_mouse_button_down(self, x, y):
-        if self._tile[y][x].around_mine_count == 0:
-            return True
-        self._tile[y][x].status = TileStatus.double
-        around = self._get_around(x, y)
-        sumflag = sum(1 for i, j in around if self._tile[j][i].status == TileStatus.flag)
-        result = True
-        if sumflag == self._tile[y][x].around_mine_count:
-            for i, j in around:
-                if self._tile[j][i].status == TileStatus.idle:
-                    if not self.open_mine(i, j):
-                        result = False
-        else:
-            for i, j in around:
-                if self._tile[j][i].status == TileStatus.idle:
-                    self._tile[j][i].status = TileStatus.hint
-        return result
