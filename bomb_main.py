@@ -6,11 +6,11 @@ import pygame
 from pygame.locals import *
 
 # Constants
-BLOCK_WIDTH = 10  # Adjust the width as necessary
+TILE_WIDTH = 10  # Adjust the width as necessary
 BLOCK_HEIGHT = 10  # Adjust the height as necessary
 SIZE = 20  # Adjust the block size as necessary
 MINE_COUNT = 10  # Adjust the mine count as necessary
-SCREEN_WIDTH = BLOCK_WIDTH * SIZE
+SCREEN_WIDTH = TILE_WIDTH * SIZE
 SCREEN_HEIGHT = (BLOCK_HEIGHT + 2) * SIZE
 
 class BlockStatus(Enum):
@@ -77,12 +77,12 @@ class Mine:
 
 class MineBlock:
     def __init__(self):
-        self._block = [[Mine(i, j) for i in range(BLOCK_WIDTH)] for j in range(BLOCK_HEIGHT)]
+        self._block = [[Mine(i, j) for i in range(TILE_WIDTH)] for j in range(BLOCK_HEIGHT)]
         self._set_mines()
     
     def _set_mines(self):
-        for i in random.sample(range(BLOCK_WIDTH * BLOCK_HEIGHT), MINE_COUNT):
-            self._block[i // BLOCK_WIDTH][i % BLOCK_WIDTH].value = 1
+        for i in random.sample(range(TILE_WIDTH * BLOCK_HEIGHT), MINE_COUNT):
+            self._block[i // TILE_WIDTH][i % TILE_WIDTH].value = 1
     
     def getmine(self, x, y):
         return self._block[y][x]
@@ -127,7 +127,7 @@ class MineBlock:
                 self._block[j][i].status = BlockStatus.normal
     
     def _get_around(self, x, y):
-        return [(i, j) for i in range(max(0, x - 1), min(BLOCK_WIDTH - 1, x + 1) + 1)
+        return [(i, j) for i in range(max(0, x - 1), min(TILE_WIDTH - 1, x + 1) + 1)
                 for j in range(max(0, y - 1), min(BLOCK_HEIGHT - 1, y + 1) + 1) if i != x or j != y]
 
 class GameStatus(Enum):
@@ -252,7 +252,7 @@ def main():
             elapsed_time = int(time.time() - start_time)
         print_text(screen, font1, SCREEN_WIDTH - fwidth - 30, (SIZE * 2 - fheight) // 2 - 2, '%03d' % elapsed_time, red)
         
-        if flag_count + opened_count == BLOCK_WIDTH * BLOCK_HEIGHT:
+        if flag_count + opened_count == TILE_WIDTH * BLOCK_HEIGHT:
             game_status = GameStatus.win
         
         if game_status == GameStatus.over:
