@@ -83,6 +83,4 @@ class MineTile:
     def _set_mines(self):
         for i in random.sample(range(TILE_WIDTH * TILE_HIGHT), MINE_COUNT):
             self._tile[i // TILE_WIDTH][i % TILE_WIDTH].value = 1
-    
-    def getmine(self, x, y):
-        return self._tile[y][x]
+
