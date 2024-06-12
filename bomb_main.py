@@ -150,18 +150,18 @@ def main():
     red = (200, 40, 40)
     
     img_dict = {
-        i: pygame.transform.smoothscale(pygame.image.load(f'resources/{i}.bmp').convert(), (SIZE, SIZE)) for i in range(9)
+        i: pygame.transform.smoothscale(pygame.image.load(f'pictures/{i}.bmp').convert(), (SIZE, SIZE)) for i in range(9)
     }
     
-    img_blank = pygame.transform.smoothscale(pygame.image.load('resources/blank.bmp').convert(), (SIZE, SIZE))
-    img_flag = pygame.transform.smoothscale(pygame.image.load('resources/flag.bmp').convert(), (SIZE, SIZE))
-    img_ask = pygame.transform.smoothscale(pygame.image.load('resources/ask.bmp').convert(), (SIZE, SIZE))
-    img_mine = pygame.transform.smoothscale(pygame.image.load('resources/mine.bmp').convert(), (SIZE, SIZE))
-    img_blood = pygame.transform.smoothscale(pygame.image.load('resources/blood.bmp').convert(), (SIZE, SIZE))
-    img_error = pygame.transform.smoothscale(pygame.image.load('resources/error.bmp').convert(), (SIZE, SIZE))
+    img_blank = pygame.transform.smoothscale(pygame.image.load('pictures/blank.bmp').convert(), (SIZE, SIZE))
+    img_flag = pygame.transform.smoothscale(pygame.image.load('pictures/flag.bmp').convert(), (SIZE, SIZE))
+    img_ask = pygame.transform.smoothscale(pygame.image.load('pictures/ask.bmp').convert(), (SIZE, SIZE))
+    img_mine = pygame.transform.smoothscale(pygame.image.load('pictures/mine.bmp').convert(), (SIZE, SIZE))
+    img_blood = pygame.transform.smoothscale(pygame.image.load('pictures/blood.bmp').convert(), (SIZE, SIZE))
+    img_error = pygame.transform.smoothscale(pygame.image.load('pictures/error.bmp').convert(), (SIZE, SIZE))
     face_size = int(SIZE * 1.25)
-    img_face_fail = pygame.transform.smoothscale(pygame.image.load('resources/face_fail.bmp').convert(), (face_size, face_size))
-    img_face_normal = pygame.transform.smoothscale(pygame.image.load('resources/face_normal.bmp').convert(), (face_size, face_size))
+    img_face_fail = pygame.transform.smoothscale(pygame.image.load('pictures/face_fail.bmp').convert(), (face_size, face_size))
+    img_face_normal = pygame.transform.smoothscale(pygame.image.load('pictures/face_normal.bmp').convert(), (face_size, face_size))
     img_face_success = pygame.transform.smoothscale(pygame.image.load('resources/face_success.bmp').convert(), (face_size, face_size))
     face_pos_x = (SCREEN_WIDTH - face_size) // 2
     face_pos_y = (SIZE * 2 - face_size) // 2
