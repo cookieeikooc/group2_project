@@ -179,9 +179,4 @@ def main():
                 x = mouse_x // SIZE
                 y = mouse_y // SIZE - 2
                 b1, b2, b3 = pygame.mouse.get_pressed()
-                if game_status == GameStatus.started:
-                    if b1 and b3:
-                        mine = tile.getmine(x, y)
-                        if mine.status == TileStatus.clicked:
-                            if not tile.double_mouse_button_down(x, y):
-                                game_status = GameStatus.over
+                if game_status == GameStatus.started)
