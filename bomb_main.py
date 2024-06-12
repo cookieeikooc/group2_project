@@ -166,6 +166,3 @@ def main():
     face_pos_y = (SIZE * 2 - face_size) // 2
     bgcolor = (225, 225, 225)
     tile = MineTile()
-    game_status = GameStatus.readied
-    start_time = None
-    elapsed_time = 0
