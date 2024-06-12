@@ -86,18 +86,3 @@ class MineTile:
     
     def getmine(self, x, y):
         return self._tile[y][x]
-
-    def open_mine(self, x, y):
-        # touch bomb
-        if self._tile[y][x].value:
-            self._tile[y][x].status = TileStatus.bomb
-            return False
-        self._tile[y][x].status = TileStatus.clicked
-        around = self._get_around(x, y)
-        _sum = sum(1 for i, j in around if self._tile[j][i].value)
-        self._tile[y][x].around_mine_count = _sum
-        if _sum == 0:
-            for i, j in around:
-                if self._tile[j][i].around_mine_count == -1:
-                    self.open_mine(i, j)
-        return True
