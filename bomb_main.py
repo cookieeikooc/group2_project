@@ -161,4 +161,3 @@ def main():
     face_size = int(SIZE * 1.25)
     img_face_lose = pygame.transform.smoothscale(pygame.image.load('pictures/face_lose.bmp').convert(), (face_size, face_size))
     img_face_running = pygame.transform.smoothscale(pygame.image.load('pictures/face_running.bmp').convert(), (face_size, face_size))
-    img_face_win = pygame.transform.smoothscale(pygame.image.load('pictures/face_win.bmp').convert(), (face_size, face_size))
