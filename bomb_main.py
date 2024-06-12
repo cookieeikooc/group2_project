@@ -198,8 +198,3 @@ def main():
                         start_time = time.time()
                         elapsed_time = 0
                         continue
-
-                if game_status == GameStatus.readied:
-                    game_status = GameStatus.started
-                    start_time = time.time()
-                    elapsed_time = 0
