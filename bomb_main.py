@@ -35,7 +35,7 @@ class Mine:
     def __repr__(self):
         return str(self._value)
     
-    @property
+    @property              #read
     def x(self):
         return self._x
     
