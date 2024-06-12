@@ -261,6 +261,3 @@ def main():
             screen.blit(img_face_success, (face_pos_x, face_pos_y))
         else:
             screen.blit(img_face_idle, (face_pos_x, face_pos_y))
-        
-        pygame.display.update()
-
