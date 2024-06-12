@@ -246,5 +246,3 @@ def main():
                     screen.blit(img_error, pos)
                 elif mine.status == TileStatus.idle:
                     screen.blit(img_blank, pos)
-        
-        print_text(screen, font1, 30, (SIZE * 2 - fheight) // 2 - 2, '%02d' % (MINE_COUNT - flag_count), red)
