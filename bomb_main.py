@@ -220,6 +220,3 @@ def main():
                     elif b1 and b3:
                         if mine.status == TileStatus.double:
                             tile.double_mouse_button_up(x, y)
-
-        flag_count = 0
-        clicked_count = 0
