@@ -159,4 +159,3 @@ def main():
     img_blood = pygame.transform.smoothscale(pygame.image.load('pictures/blood.bmp').convert(), (SIZE, SIZE))
     img_error = pygame.transform.smoothscale(pygame.image.load('pictures/error.bmp').convert(), (SIZE, SIZE))
     face_size = int(SIZE * 1.25)
-    img_face_lose = pygame.transform.smoothscale(pygame.image.load('pictures/face_lose.bmp').convert(), (face_size, face_size))
