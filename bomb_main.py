@@ -162,5 +162,3 @@ def main():
     img_face_lose = pygame.transform.smoothscale(pygame.image.load('pictures/face_lose.bmp').convert(), (face_size, face_size))
     img_face_running = pygame.transform.smoothscale(pygame.image.load('pictures/face_running.bmp').convert(), (face_size, face_size))
     img_face_win = pygame.transform.smoothscale(pygame.image.load('pictures/face_win.bmp').convert(), (face_size, face_size))
-    face_pos_x = (SCREEN_WIDTH - face_size) // 2
-    face_pos_y = (SIZE * 2 - face_size) // 2
