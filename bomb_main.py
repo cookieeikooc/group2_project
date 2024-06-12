@@ -63,7 +63,7 @@ class Mine:
     def around_mine_count(self):
         return self._around_mine_count
     
-    @around_mine_count.setter
+    @around_mine_count.setter   #write
     def around_mine_count(self, around_mine_count):
         self._around_mine_count = around_mine_count
     
