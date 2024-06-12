@@ -73,10 +73,4 @@ class Mine:
     
     @status.setter          #write
     def status(self, value):
-        self._status = value
-
-class MineTile:
-    def __init__(self):
-        self._tile = [[Mine(i, j) for i in range(TILE_WIDTH)] for j in range(TILE_HIGHT)]
-        self._set_mines()
-
+        self._status = va
