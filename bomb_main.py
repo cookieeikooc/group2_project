@@ -223,13 +223,3 @@ def main():
 
         flag_count = 0
         clicked_count = 0
-        for row in tile._tile:
-            for mine in row:
-                pos = (mine.x * SIZE, (mine.y + 2) * SIZE)
-                if mine.status == TileStatus.clicked:
-                    screen.blit(img_dict[mine.around_mine_count], pos)
-                    clicked_count += 1
-                elif mine.status == TileStatus.double:
-                    screen.blit(img_dict[mine.around_mine_count], pos)
-                elif mine.status == TileStatus.bomb:
-                    screen.blit(img_blood, pos)
