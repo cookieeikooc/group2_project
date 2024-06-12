@@ -63,14 +63,3 @@ class Mine:
     def around_mine_count(self):
         return self._around_mine_count
     
-    @around_mine_count.setter   #write
-    def around_mine_count(self, around_mine_count):
-        self._around_mine_count = around_mine_count
-    
-    @property               #read
-    def status(self):
-        return self._status
-    
-    @status.setter          #write
-    def status(self, value):
-        self._status = va
