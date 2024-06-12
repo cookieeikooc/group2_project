@@ -140,11 +140,3 @@ def print_text(screen, font, x, y, text, fcolor=(255, 255, 255)):
     imgText = font.render(text, True, fcolor)
     screen.blit(imgText, (x, y))
 
-def main():
-    pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption('扫雷')
-
-    font1 = pygame.font.Font('No.019-Sounso-Quality-2.ttf', SIZE * 2)
-    fwidth, fheight = font1.size('999')
-    red = (200, 40, 40) 
