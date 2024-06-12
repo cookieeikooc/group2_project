@@ -57,9 +57,4 @@ class Mine:
     
     @value.setter           #write
     def value(self, value):
-        self._value = 1 if value else 0
-    
-    @property               #read
-    def around_mine_count(self):
-        return self._around_mine_count
-    
+        self._value = 1 if value else 0    
