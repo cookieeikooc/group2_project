@@ -7,11 +7,11 @@ from pygame.locals import *
 
 # Constants
 TILE_WIDTH = 10  # Adjust the width as necessary
-BLOCK_HEIGHT = 10  # Adjust the height as necessary
+TILE_HIGHT = 10  # Adjust the height as necessary
 SIZE = 20  # Adjust the block size as necessary
 MINE_COUNT = 10  # Adjust the mine count as necessary
 SCREEN_WIDTH = TILE_WIDTH * SIZE
-SCREEN_HEIGHT = (BLOCK_HEIGHT + 2) * SIZE
+SCREEN_HEIGHT = (TILE_HIGHT + 2) * SIZE
 
 class BlockStatus(Enum):
     normal = 1  # not clicked
@@ -77,11 +77,11 @@ class Mine:
 
 class MineBlock:
     def __init__(self):
-        self._block = [[Mine(i, j) for i in range(TILE_WIDTH)] for j in range(BLOCK_HEIGHT)]
+        self._block = [[Mine(i, j) for i in range(TILE_WIDTH)] for j in range(TILE_HIGHT)]
         self._set_mines()
     
     def _set_mines(self):
-        for i in random.sample(range(TILE_WIDTH * BLOCK_HEIGHT), MINE_COUNT):
+        for i in random.sample(range(TILE_WIDTH * TILE_HIGHT), MINE_COUNT):
             self._block[i // TILE_WIDTH][i % TILE_WIDTH].value = 1
     
     def getmine(self, x, y):
@@ -128,7 +128,7 @@ class MineBlock:
     
     def _get_around(self, x, y):
         return [(i, j) for i in range(max(0, x - 1), min(TILE_WIDTH - 1, x + 1) + 1)
-                for j in range(max(0, y - 1), min(BLOCK_HEIGHT - 1, y + 1) + 1) if i != x or j != y]
+                for j in range(max(0, y - 1), min(TILE_HIGHT - 1, y + 1) + 1) if i != x or j != y]
 
 class GameStatus(Enum):
     readied = 1,
@@ -252,7 +252,7 @@ def main():
             elapsed_time = int(time.time() - start_time)
         print_text(screen, font1, SCREEN_WIDTH - fwidth - 30, (SIZE * 2 - fheight) // 2 - 2, '%03d' % elapsed_time, red)
         
-        if flag_count + opened_count == TILE_WIDTH * BLOCK_HEIGHT:
+        if flag_count + opened_count == TILE_WIDTH * TILE_HIGHT:
             game_status = GameStatus.win
         
         if game_status == GameStatus.over:
