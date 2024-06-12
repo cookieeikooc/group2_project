@@ -148,6 +148,3 @@ def main():
     font1 = pygame.font.Font('No.019-Sounso-Quality-2.ttf', SIZE * 2)
     fwidth, fheight = font1.size('999')
     red = (200, 40, 40) 
-    img_dict = {
-        i: pygame.transform.smoothscale(pygame.image.load(f'pictures/{i}.bmp').convert(), (SIZE, SIZE)) for i in range(9)
-    }
