@@ -156,5 +156,4 @@ def main():
     img_start = pygame.transform.smoothscale(pygame.image.load('pictures/start.bmp').convert(), (SIZE, SIZE))
     img_ask = pygame.transform.smoothscale(pygame.image.load('pictures/ask.bmp').convert(), (SIZE, SIZE))
     img_bomb = pygame.transform.smoothscale(pygame.image.load('pictures/bomb.bmp').convert(), (SIZE, SIZE))
-    img_blood = pygame.transform.smoothscale(pygame.image.load('pictures/blood.bmp').convert(), (SIZE, SIZE))
-    img_error = pygame.transform.smoothscale(pygame.image.load('pictures/error.bmp').convert(), (SIZE, SIZE))
+    img_blood = pygame.transform.smoothscale(pygame.image.load('pictures/blood.bmp').convert(), (SIZE, SIZE)
