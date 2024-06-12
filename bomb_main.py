@@ -193,8 +193,3 @@ def main():
                 if y < 0:
                     if face_pos_x <= mouse_x <= face_pos_x + face_size \
                             and face_pos_y <= mouse_y <= face_pos_y + face_size:
-                        game_status = GameStatus.readied
-                        tile = MineTile()
-                        start_time = time.time()
-                        elapsed_time = 0
-                        continue
