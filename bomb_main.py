@@ -147,8 +147,7 @@ def main():
 
     font1 = pygame.font.Font('No.019-Sounso-Quality-2.ttf', SIZE * 2)
     fwidth, fheight = font1.size('999')
-    red = (200, 40, 40)
-    
+    red = (200, 40, 40) 
     img_dict = {
         i: pygame.transform.smoothscale(pygame.image.load(f'pictures/{i}.bmp').convert(), (SIZE, SIZE)) for i in range(9)
     }
@@ -161,17 +160,15 @@ def main():
     img_error = pygame.transform.smoothscale(pygame.image.load('pictures/error.bmp').convert(), (SIZE, SIZE))
     face_size = int(SIZE * 1.25)
     img_face_lose = pygame.transform.smoothscale(pygame.image.load('pictures/face_lose.bmp').convert(), (face_size, face_size))
-    img_face_normal = pygame.transform.smoothscale(pygame.image.load('pictures/face_normal.bmp').convert(), (face_size, face_size))
-    img_face_success = pygame.transform.smoothscale(pygame.image.load('resources/face_success.bmp').convert(), (face_size, face_size))
+    img_face_running = pygame.transform.smoothscale(pygame.image.load('pictures/face_running.bmp').convert(), (face_size, face_size))
+    img_face_win = pygame.transform.smoothscale(pygame.image.load('pictures/face_win.bmp').convert(), (face_size, face_size))
     face_pos_x = (SCREEN_WIDTH - face_size) // 2
     face_pos_y = (SIZE * 2 - face_size) // 2
-    
     bgcolor = (225, 225, 225)
     block = MineBlock()
     game_status = GameStatus.readied
     start_time = None
     elapsed_time = 0
-    
     while True:
         screen.fill(bgcolor)
         for event in pygame.event.get():
