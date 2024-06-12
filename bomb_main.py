@@ -189,7 +189,3 @@ def main():
                 mouse_x, mouse_y = event.pos
                 x = mouse_x // SIZE
                 y = mouse_y // SIZE - 2
-
-                if y < 0:
-                    if face_pos_x <= mouse_x <= face_pos_x + face_size \
-                            and face_pos_y <= mouse_y <= face_pos_y + face_size:
