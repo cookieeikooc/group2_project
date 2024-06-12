@@ -15,7 +15,7 @@ SCREEN_HEIGHT = (TILE_HIGHT + 2) * SIZE
 
 class TileStatus(Enum):
     normal = 1  # not clicked
-    opened = 2  # clicked
+    clicked = 2  # clicked
     mine = 3    # bomb
     flag = 4    # bomb mark
     ask = 5     # question mark
@@ -92,7 +92,7 @@ class MineBlock:
         if self._block[y][x].value:
             self._block[y][x].status = TileStatus.bomb
             return False
-        self._block[y][x].status = TileStatus.opened
+        self._block[y][x].status = TileStatus.clicked
         around = self._get_around(x, y)
         _sum = sum(1 for i, j in around if self._block[j][i].value)
         self._block[y][x].around_mine_count = _sum
@@ -121,7 +121,7 @@ class MineBlock:
         return result
     
     def double_mouse_button_up(self, x, y):
-        self._block[y][x].status = TileStatus.opened
+        self._block[y][x].status = TileStatus.clicked
         for i, j in self._get_around(x, y):
             if self._block[j][i].status == TileStatus.hint:
                 self._block[j][i].status = TileStatus.normal
@@ -182,7 +182,7 @@ def main():
                 if game_status == GameStatus.started:
                     if b1 and b3:
                         mine = block.getmine(x, y)
-                        if mine.status == TileStatus.opened:
+                        if mine.status == TileStatus.clicked:
                             if not block.double_mouse_button_down(x, y):
                                 game_status = GameStatus.over
             elif event.type == MOUSEBUTTONUP:
@@ -222,13 +222,13 @@ def main():
                             block.double_mouse_button_up(x, y)
 
         flag_count = 0
-        opened_count = 0
+        clicked_count = 0
         for row in block._block:
             for mine in row:
                 pos = (mine.x * SIZE, (mine.y + 2) * SIZE)
-                if mine.status == TileStatus.opened:
+                if mine.status == TileStatus.clicked:
                     screen.blit(img_dict[mine.around_mine_count], pos)
-                    opened_count += 1
+                    clicked_count += 1
                 elif mine.status == TileStatus.double:
                     screen.blit(img_dict[mine.around_mine_count], pos)
                 elif mine.status == TileStatus.bomb:
@@ -252,7 +252,7 @@ def main():
             elapsed_time = int(time.time() - start_time)
         print_text(screen, font1, SCREEN_WIDTH - fwidth - 30, (SIZE * 2 - fheight) // 2 - 2, '%03d' % elapsed_time, red)
         
-        if flag_count + opened_count == TILE_WIDTH * TILE_HIGHT:
+        if flag_count + clicked_count == TILE_WIDTH * TILE_HIGHT:
             game_status = GameStatus.win
         
         if game_status == GameStatus.over:
