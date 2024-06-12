@@ -169,8 +169,3 @@ def main():
     game_status = GameStatus.readied
     start_time = None
     elapsed_time = 0
-    while True:
-        screen.fill(bgcolor)
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                sys.exit()
