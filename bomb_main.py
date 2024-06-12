@@ -41,12 +41,4 @@ class Mine:
     
     @x.setter               #write
     def x(self, x):
-        self._x = x
-    
-    @property               #read
-    def y(self):
-        return self._y
-    
-    @y.setter               #write
-    def y(self, y):
-        self._y = y
+        self._x 
