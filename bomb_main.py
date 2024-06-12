@@ -14,7 +14,7 @@ SCREEN_WIDTH = TILE_WIDTH * SIZE
 SCREEN_HEIGHT = (TILE_HIGHT + 2) * SIZE
 
 class TileStatus(Enum):
-    normal = 1  # not clicked
+    idle = 1  # not clicked
     clicked = 2  # clicked
     mine = 3    # bomb
     flag = 4    # bomb mark
@@ -29,7 +29,7 @@ class Mine:
         self._y = y
         self._value = 0
         self._around_mine_count = -1
-        self._status = TileStatus.normal
+        self._status = TileStatus.idle
         self.set_value(value)
     
     def __repr__(self):
@@ -111,12 +111,12 @@ class MineBlock:
         result = True
         if sumflag == self._block[y][x].around_mine_count:
             for i, j in around:
-                if self._block[j][i].status == TileStatus.normal:
+                if self._block[j][i].status == TileStatus.idle:
                     if not self.open_mine(i, j):
                         result = False
         else:
             for i, j in around:
-                if self._block[j][i].status == TileStatus.normal:
+                if self._block[j][i].status == TileStatus.idle:
                     self._block[j][i].status = TileStatus.hint
         return result
     
@@ -124,7 +124,7 @@ class MineBlock:
         self._block[y][x].status = TileStatus.clicked
         for i, j in self._get_around(x, y):
             if self._block[j][i].status == TileStatus.hint:
-                self._block[j][i].status = TileStatus.normal
+                self._block[j][i].status = TileStatus.idle
     
     def _get_around(self, x, y):
         return [(i, j) for i in range(max(0, x - 1), min(TILE_WIDTH - 1, x + 1) + 1)
@@ -207,16 +207,16 @@ def main():
                 if game_status == GameStatus.started:
                     mine = block.getmine(x, y)
                     if b1 and not b3:
-                        if mine.status == TileStatus.normal:
+                        if mine.status == TileStatus.idle:
                             if not block.open_mine(x, y):
                                 game_status = GameStatus.over
                     elif not b1 and b3:
-                        if mine.status == TileStatus.normal:
+                        if mine.status == TileStatus.idle:
                             mine.status = TileStatus.flag
                         elif mine.status == TileStatus.flag:
                             mine.status = TileStatus.ask
                         elif mine.status == TileStatus.ask:
-                            mine.status = TileStatus.normal
+                            mine.status = TileStatus.idle
                     elif b1 and b3:
                         if mine.status == TileStatus.double:
                             block.double_mouse_button_up(x, y)
@@ -244,7 +244,7 @@ def main():
                     screen.blit(img_mine, pos)
                 elif mine.value == 0 and mine.status == TileStatus.flag:
                     screen.blit(img_error, pos)
-                elif mine.status == TileStatus.normal:
+                elif mine.status == TileStatus.idle:
                     screen.blit(img_blank, pos)
         
         print_text(screen, font1, 30, (SIZE * 2 - fheight) // 2 - 2, '%02d' % (MINE_COUNT - flag_count), red)
@@ -260,7 +260,7 @@ def main():
         elif game_status == GameStatus.win:
             screen.blit(img_face_success, (face_pos_x, face_pos_y))
         else:
-            screen.blit(img_face_normal, (face_pos_x, face_pos_y))
+            screen.blit(img_face_idle, (face_pos_x, face_pos_y))
         
         pygame.display.update()
 
