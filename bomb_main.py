@@ -203,10 +203,3 @@ def main():
                     game_status = GameStatus.started
                     start_time = time.time()
                     elapsed_time = 0
-
-                if game_status == GameStatus.started:
-                    mine = tile.getmine(x, y)
-                    if b1 and not b3:
-                        if mine.status == TileStatus.idle:
-                            if not tile.open_mine(x, y):
-                                game_status = GameStatus.over
