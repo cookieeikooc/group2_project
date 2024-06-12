@@ -151,6 +151,3 @@ def main():
     img_dict = {
         i: pygame.transform.smoothscale(pygame.image.load(f'pictures/{i}.bmp').convert(), (SIZE, SIZE)) for i in range(9)
     }
-    
-    img_blank = pygame.transform.smoothscale(pygame.image.load('pictures/blank.bmp').convert(), (SIZE, SIZE))
-    img_start = pygame.transform.smoothscale(pygame.image.load('pictures/start.bmp').convert(), (SIZE, SIZE))
