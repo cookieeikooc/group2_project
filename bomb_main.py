@@ -210,13 +210,3 @@ def main():
                         if mine.status == TileStatus.idle:
                             if not tile.open_mine(x, y):
                                 game_status = GameStatus.over
-                    elif not b1 and b3:
-                        if mine.status == TileStatus.idle:
-                            mine.status = TileStatus.flag
-                        elif mine.status == TileStatus.flag:
-                            mine.status = TileStatus.ask
-                        elif mine.status == TileStatus.ask:
-                            mine.status = TileStatus.idle
-                    elif b1 and b3:
-                        if mine.status == TileStatus.double:
-                            tile.double_mouse_button_up(x, y)
