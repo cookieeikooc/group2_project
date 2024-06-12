@@ -33,12 +33,4 @@ class Mine:
         self.set_value(value)
     
     def __repr__(self):
-        return str(self._value)
-    
-    @property               #read
-    def x(self):
-        return self._x
-    
-    @x.setter               #write
-    def x(self, x):
-        self._x 
+        return str(self._value
