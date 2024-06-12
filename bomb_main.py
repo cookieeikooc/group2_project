@@ -233,10 +233,3 @@ def main():
                     screen.blit(img_dict[mine.around_mine_count], pos)
                 elif mine.status == TileStatus.bomb:
                     screen.blit(img_blood, pos)
-                elif mine.status == TileStatus.flag:
-                    screen.blit(img_flag, pos)
-                    flag_count += 1
-                elif mine.status == TileStatus.ask:
-                    screen.blit(img_ask, pos)
-                elif mine.status == TileStatus.hint:
-                    screen.blit(img_blank, pos)
