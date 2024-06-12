@@ -53,8 +53,4 @@ class Mine:
     
     @property               #read
     def value(self):
-        return self._value
-    
-    @value.setter           #write
-    def value(self, value):
-        self._value = 1 if value else 0    
+        return self._value 
