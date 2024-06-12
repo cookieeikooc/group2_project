@@ -55,11 +55,11 @@ class Mine:
     def value(self):
         return self._value
     
-    @value.setter
+    @value.setter           #write
     def value(self, value):
         self._value = 1 if value else 0
     
-    @property
+    @property               #read
     def around_mine_count(self):
         return self._around_mine_count
     
