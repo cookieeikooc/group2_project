@@ -240,9 +240,3 @@ def main():
                     screen.blit(img_ask, pos)
                 elif mine.status == TileStatus.hint:
                     screen.blit(img_blank, pos)
-                elif game_status == GameStatus.over and mine.value:
-                    screen.blit(img_mine, pos)
-                elif mine.value == 0 and mine.status == TileStatus.flag:
-                    screen.blit(img_error, pos)
-                elif mine.status == TileStatus.idle:
-                    screen.blit(img_blank, pos)
