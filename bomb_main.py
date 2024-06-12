@@ -75,7 +75,7 @@ class Mine:
     def status(self, value):
         self._status = value
 
-class MineBlock:
+class MineTile:
     def __init__(self):
         self._block = [[Mine(i, j) for i in range(TILE_WIDTH)] for j in range(TILE_HIGHT)]
         self._set_mines()
@@ -165,7 +165,7 @@ def main():
     face_pos_x = (SCREEN_WIDTH - face_size) // 2
     face_pos_y = (SIZE * 2 - face_size) // 2
     bgcolor = (225, 225, 225)
-    block = MineBlock()
+    block = MineTile()
     game_status = GameStatus.readied
     start_time = None
     elapsed_time = 0
@@ -194,7 +194,7 @@ def main():
                     if face_pos_x <= mouse_x <= face_pos_x + face_size \
                             and face_pos_y <= mouse_y <= face_pos_y + face_size:
                         game_status = GameStatus.readied
-                        block = MineBlock()
+                        block = MineTile()
                         start_time = time.time()
                         elapsed_time = 0
                         continue
