@@ -43,15 +43,15 @@ class Mine:
     def x(self, x):
         self._x = x
     
-    @property
+    @property               #read
     def y(self):
         return self._y
     
-    @y.setter
+    @y.setter               #write
     def y(self, y):
         self._y = y
     
-    @property
+    @property               #read
     def value(self):
         return self._value
     
