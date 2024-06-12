@@ -185,7 +185,3 @@ def main():
                         if mine.status == TileStatus.clicked:
                             if not tile.double_mouse_button_down(x, y):
                                 game_status = GameStatus.over
-            elif event.type == MOUSEBUTTONUP:
-                mouse_x, mouse_y = event.pos
-                x = mouse_x // SIZE
-                y = mouse_y // SIZE - 2
