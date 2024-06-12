@@ -155,4 +155,3 @@ def main():
     img_blank = pygame.transform.smoothscale(pygame.image.load('pictures/blank.bmp').convert(), (SIZE, SIZE))
     img_start = pygame.transform.smoothscale(pygame.image.load('pictures/start.bmp').convert(), (SIZE, SIZE))
     img_ask = pygame.transform.smoothscale(pygame.image.load('pictures/ask.bmp').convert(), (SIZE, SIZE))
-    img_bomb = pygame.transform.smoothscale(pygame.image.load('pictures/bomb.bmp').convert(), (SIZE, SIZE))
