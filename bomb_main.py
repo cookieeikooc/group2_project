@@ -8,7 +8,7 @@ from pygame.locals import *
 # Constants
 TILE_WIDTH = 10  # Adjust the width as necessary
 TILE_HIGHT = 10  # Adjust the height as necessary
-SIZE = 20  # Adjust the block size as necessary
+SIZE = 20  # Adjust the tile size as necessary
 MINE_COUNT = 10  # Adjust the mine count as necessary
 SCREEN_WIDTH = TILE_WIDTH * SIZE
 SCREEN_HEIGHT = (TILE_HIGHT + 2) * SIZE
@@ -77,54 +77,54 @@ class Mine:
 
 class MineTile:
     def __init__(self):
-        self._block = [[Mine(i, j) for i in range(TILE_WIDTH)] for j in range(TILE_HIGHT)]
+        self._tile = [[Mine(i, j) for i in range(TILE_WIDTH)] for j in range(TILE_HIGHT)]
         self._set_mines()
     
     def _set_mines(self):
         for i in random.sample(range(TILE_WIDTH * TILE_HIGHT), MINE_COUNT):
-            self._block[i // TILE_WIDTH][i % TILE_WIDTH].value = 1
+            self._tile[i // TILE_WIDTH][i % TILE_WIDTH].value = 1
     
     def getmine(self, x, y):
-        return self._block[y][x]
+        return self._tile[y][x]
 
     def open_mine(self, x, y):
         # touch bomb
-        if self._block[y][x].value:
-            self._block[y][x].status = TileStatus.bomb
+        if self._tile[y][x].value:
+            self._tile[y][x].status = TileStatus.bomb
             return False
-        self._block[y][x].status = TileStatus.clicked
+        self._tile[y][x].status = TileStatus.clicked
         around = self._get_around(x, y)
-        _sum = sum(1 for i, j in around if self._block[j][i].value)
-        self._block[y][x].around_mine_count = _sum
+        _sum = sum(1 for i, j in around if self._tile[j][i].value)
+        self._tile[y][x].around_mine_count = _sum
         if _sum == 0:
             for i, j in around:
-                if self._block[j][i].around_mine_count == -1:
+                if self._tile[j][i].around_mine_count == -1:
                     self.open_mine(i, j)
         return True
     
     def double_mouse_button_down(self, x, y):
-        if self._block[y][x].around_mine_count == 0:
+        if self._tile[y][x].around_mine_count == 0:
             return True
-        self._block[y][x].status = TileStatus.double
+        self._tile[y][x].status = TileStatus.double
         around = self._get_around(x, y)
-        sumflag = sum(1 for i, j in around if self._block[j][i].status == TileStatus.flag)
+        sumflag = sum(1 for i, j in around if self._tile[j][i].status == TileStatus.flag)
         result = True
-        if sumflag == self._block[y][x].around_mine_count:
+        if sumflag == self._tile[y][x].around_mine_count:
             for i, j in around:
-                if self._block[j][i].status == TileStatus.idle:
+                if self._tile[j][i].status == TileStatus.idle:
                     if not self.open_mine(i, j):
                         result = False
         else:
             for i, j in around:
-                if self._block[j][i].status == TileStatus.idle:
-                    self._block[j][i].status = TileStatus.hint
+                if self._tile[j][i].status == TileStatus.idle:
+                    self._tile[j][i].status = TileStatus.hint
         return result
     
     def double_mouse_button_up(self, x, y):
-        self._block[y][x].status = TileStatus.clicked
+        self._tile[y][x].status = TileStatus.clicked
         for i, j in self._get_around(x, y):
-            if self._block[j][i].status == TileStatus.hint:
-                self._block[j][i].status = TileStatus.idle
+            if self._tile[j][i].status == TileStatus.hint:
+                self._tile[j][i].status = TileStatus.idle
     
     def _get_around(self, x, y):
         return [(i, j) for i in range(max(0, x - 1), min(TILE_WIDTH - 1, x + 1) + 1)
@@ -165,7 +165,7 @@ def main():
     face_pos_x = (SCREEN_WIDTH - face_size) // 2
     face_pos_y = (SIZE * 2 - face_size) // 2
     bgcolor = (225, 225, 225)
-    block = MineTile()
+    tile = MineTile()
     game_status = GameStatus.readied
     start_time = None
     elapsed_time = 0
@@ -181,9 +181,9 @@ def main():
                 b1, b2, b3 = pygame.mouse.get_pressed()
                 if game_status == GameStatus.started:
                     if b1 and b3:
-                        mine = block.getmine(x, y)
+                        mine = tile.getmine(x, y)
                         if mine.status == TileStatus.clicked:
-                            if not block.double_mouse_button_down(x, y):
+                            if not tile.double_mouse_button_down(x, y):
                                 game_status = GameStatus.over
             elif event.type == MOUSEBUTTONUP:
                 mouse_x, mouse_y = event.pos
@@ -194,7 +194,7 @@ def main():
                     if face_pos_x <= mouse_x <= face_pos_x + face_size \
                             and face_pos_y <= mouse_y <= face_pos_y + face_size:
                         game_status = GameStatus.readied
-                        block = MineTile()
+                        tile = MineTile()
                         start_time = time.time()
                         elapsed_time = 0
                         continue
@@ -205,10 +205,10 @@ def main():
                     elapsed_time = 0
 
                 if game_status == GameStatus.started:
-                    mine = block.getmine(x, y)
+                    mine = tile.getmine(x, y)
                     if b1 and not b3:
                         if mine.status == TileStatus.idle:
-                            if not block.open_mine(x, y):
+                            if not tile.open_mine(x, y):
                                 game_status = GameStatus.over
                     elif not b1 and b3:
                         if mine.status == TileStatus.idle:
@@ -219,11 +219,11 @@ def main():
                             mine.status = TileStatus.idle
                     elif b1 and b3:
                         if mine.status == TileStatus.double:
-                            block.double_mouse_button_up(x, y)
+                            tile.double_mouse_button_up(x, y)
 
         flag_count = 0
         clicked_count = 0
-        for row in block._block:
+        for row in tile._tile:
             for mine in row:
                 pos = (mine.x * SIZE, (mine.y + 2) * SIZE)
                 if mine.status == TileStatus.clicked:
