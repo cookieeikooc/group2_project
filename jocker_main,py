@@ -48,3 +48,5 @@ BIRD = [
     pygame.image.load(os.path.join("assets/Bird", "Bird2.png")),
 ]
 
+#Cloud
+CLOUD = pygame.image.load(os.path.join("assets/Other", "Cloud.png"))
