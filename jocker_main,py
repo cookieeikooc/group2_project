@@ -43,5 +43,8 @@ LARGE_CACTUS = [
 ]
 
 #Sky Obsticles
-
+BIRD = [
+    pygame.image.load(os.path.join("assets/Bird", "Bird1.png")),
+    pygame.image.load(os.path.join("assets/Bird", "Bird2.png")),
+]
 
