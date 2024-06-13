@@ -17,3 +17,8 @@ pygame.display.set_caption("I am Jocker")
 Icon = pygame.image.load("assets/DinoWallpaper.png")
 pygame.display.set_icon(Icon)
 
+#Runing animation
+RUNNING = [
+    pygame.image.load(os.path.join("assets/Dino", "DinoRun1.png")),
+    pygame.image.load(os.path.join("assets/Dino", "DinoRun2.png")),
+]
