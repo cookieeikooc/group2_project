@@ -4,3 +4,4 @@ import random
 import threading
 import pygame
 
+pygame.init()
