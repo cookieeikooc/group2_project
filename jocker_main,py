@@ -29,3 +29,6 @@ DUCKING = [
     pygame.image.load(os.path.join("assets/Dino", "DinoDuck1.png")),
     pygame.image.load(os.path.join("assets/Dino", "DinoDuck2.png")),
 ]
+
+#Obsticles
+
