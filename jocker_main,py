@@ -4,6 +4,7 @@ import random
 import threading
 import pygame
 
+#Pygame
 pygame.init()
 
 SCREEN_HEIGHT = 600
@@ -12,5 +13,7 @@ SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 pygame.display.set_caption("I am Jocker")
 
+#Icon
 Icon = pygame.image.load("assets/DinoWallpaper.png")
 pygame.display.set_icon(Icon)
+
