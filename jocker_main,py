@@ -53,3 +53,5 @@ CLOUD = pygame.image.load(os.path.join("assets/Other", "Cloud.png"))
 
 #Backgound
 BG = pygame.image.load(os.path.join("assets/Other", "Track.png"))
+
+FONT_COLOR=(0,0,0)
