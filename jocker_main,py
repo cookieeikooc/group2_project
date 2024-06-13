@@ -24,3 +24,4 @@ RUNNING = [
 ]
 
 #Jumping animation
+JUMPING = pygame.image.load(os.path.join("assets/Dino", "DinoJump.png"))
