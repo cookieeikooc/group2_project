@@ -31,4 +31,7 @@ DUCKING = [
 ]
 
 #Obsticles
-
+SMALL_CACTUS = [
+    pygame.image.load(os.path.join("assets/Cactus", "SmallCactus1.png")),
+    
+]
