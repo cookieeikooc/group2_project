@@ -35,5 +35,11 @@ SMALL_CACTUS = [
     pygame.image.load(os.path.join("assets/Cactus", "SmallCactus1.png")),
     pygame.image.load(os.path.join("assets/Cactus", "SmallCactus2.png")),
     pygame.image.load(os.path.join("assets/Cactus", "SmallCactus3.png")),
-
 ]
+LARGE_CACTUS = [
+    pygame.image.load(os.path.join("assets/Cactus", "LargeCactus1.png")),
+    pygame.image.load(os.path.join("assets/Cactus", "LargeCactus2.png")),
+    pygame.image.load(os.path.join("assets/Cactus", "LargeCactus3.png")),
+]
+
+
