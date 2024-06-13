@@ -4,6 +4,8 @@ import random
 import threading
 import pygame
 
+
+### PyGame Setup ###
 #Pygame
 pygame.init()
 
@@ -13,6 +15,7 @@ SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 pygame.display.set_caption("I am Jocker")
 
+### Load IMG ###
 #Icon
 Icon = pygame.image.load("assets/DinoWallpaper.png")
 pygame.display.set_icon(Icon)
@@ -57,7 +60,7 @@ BG = pygame.image.load(os.path.join("assets/Other", "Track.png"))
 FONT_COLOR=(0,0,0)
 
 
-
+### Dino ###
 class Dinosaur:
     X_POS = 80
     Y_POS = 310
@@ -131,6 +134,7 @@ class Dinosaur:
         SCREEN.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
         
         
+### Obstacles ###
 class Obstacle:
     def __init__(self, image, type):
         self.image = image
@@ -145,3 +149,5 @@ class Obstacle:
             
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)
+        
+        
