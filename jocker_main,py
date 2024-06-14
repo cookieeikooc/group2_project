@@ -150,4 +150,8 @@ class Obstacle:
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)
         
-        
+### Clouds ###
+class Cloud:
+	def __init__(self):
+	self.x = SCREEN_WIDTH + random.randint(800, 1000)
+	self.y = random.randint(50, 100)
