@@ -191,3 +191,11 @@ class SmallCactus(Obstacle):
         self.rect.y = 325
 def main():
     global game_speed, x_pos_bg, y_pos_bg, points, obstacles 
+    run = True
+    clock = pygame.time.Clock()
+    player = Dinosaur()
+    cloud = Cloud()
+    game_speed = 20
+    x_pos_bg = 0
+    y_pos_bg = 380
+    points = 0
