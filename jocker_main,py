@@ -190,3 +190,4 @@ class SmallCactus(Obstacle):
 	super().__init__(image, self.type)
         self.rect.y = 325
 def main():
+    global game_speed, x_pos_bg, y_pos_bg, points, obstacles 
