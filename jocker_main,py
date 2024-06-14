@@ -164,3 +164,6 @@ class Cloud:
             self.y = random.randint(50, 100)
     def draw(self, SCREEN):
         SCREEN.blit(self.image, (self.x, self.y)) 
+### Bird ###
+class Bird(Obstacle):
+    BIRD_HEIGHTS = [250, 290, 320]
