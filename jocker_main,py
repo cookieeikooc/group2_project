@@ -176,4 +176,6 @@ class Bird(Obstacle):
         if self.index >= 9:
             self.index = 0
         SCREEN.blit(self.image[self.index // 5], self.rect)
-        self.index += 1 
+	self.index += 1 
+### LargeCactus ###
+class LargeCactus(Obstacle):
