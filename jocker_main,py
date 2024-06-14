@@ -200,3 +200,6 @@ def main():
     y_pos_bg = 380
     points = 0
     font = pygame.font.Font("freesansbold.ttf", 20)
+    obstacles = []
+    death_count = 0
+    
