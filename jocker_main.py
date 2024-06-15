@@ -203,3 +203,21 @@ def main():
     obstacles = []
     death_count = 0
     pause = False    
+
+    ###score###
+    def score():
+        global points, game_speed
+        points += 1
+        if points % 100 == 0:
+            game_speed += 1
+        current_time = datetime.datetime.now().hour
+        with open("score.txt", "r") as f:
+            score_ints = [int(x) for x in f.read().split()]  
+            highscore = max(score_ints)
+            if points > highscore:
+                highscore=points 
+            text = font.render("High Score: "+ str(highscore) + "  Points: " + str(points), True, FONT_COLOR)
+        textRect = text.get_rect()
+        textRect.center = (900, 40)
+        SCREEN.blit(text, textRect)
+
