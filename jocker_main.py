@@ -230,4 +230,9 @@ def main():
             SCREEN.blit(BG, (image_width + x_pos_bg, y_pos_bg))
             x_pos_bg = 0
         x_pos_bg -= game_speed
+    ###obstacles###
+    def unpause():
+        nonlocal pause, run
+        pause = False
+        run = True
 
