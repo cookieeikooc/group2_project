@@ -235,4 +235,22 @@ def main():
         nonlocal pause, run
         pause = False
         run = True
+    
+    ###pause###
+    def paused():
+        nonlocal pause
+        pause = True
+        font = pygame.font.Font("freesansbold.ttf", 30)
+        text = font.render("Game Paused, Press 'u' to Unpause", True, FONT_COLOR)
+        textRect = text.get_rect()
+        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT  // 3)
+        SCREEN.blit(text, textRect)
+        pygame.display.update()
 
+        while pause:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_u:
+                    unpause()
