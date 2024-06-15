@@ -154,41 +154,47 @@ class Obstacle:
 class Cloud:
     def __init__(self):
         self.x = SCREEN_WIDTH + random.randint(800, 1000)
-	    self.y = random.randint(50, 100)
-	    self.image = CLOUD
+        self.y = random.randint(50, 100)
+        self.image = CLOUD
         self.width = self.image.get_width()
+        
     def update(self):
         self.x -= game_speed
         if self.x < -self.width:
             self.x = SCREEN_WIDTH + random.randint(2500, 3000)
             self.y = random.randint(50, 100)
+            
     def draw(self, SCREEN):
         SCREEN.blit(self.image, (self.x, self.y)) 
+        
 ### Bird ###
 class Bird(Obstacle):
     BIRD_HEIGHTS = [250, 290, 320]
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
-	self.rect.y = random.choice(self.BIRD_HEIGHTS)
+        self.rect.y = random.choice(self.BIRD_HEIGHTS)
         self.index = 0 
     def draw(self, SCREEN):
         if self.index >= 9:
             self.index = 0
         SCREEN.blit(self.image[self.index // 5], self.rect)
-	self.index += 1 
+        self.index += 1
+
 ### LargeCactus ###
 class LargeCactus(Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
         self.rect.y = 300
+        
 ### SmallCactus ###
 class SmallCactus(Obstacle):
-	def __init__(self, image):
+    def __init__(self, image):
         self.type = random.randint(0, 2)
-	super().__init__(image, self.type)
+        super().__init__(image, self.type)
         self.rect.y = 325
+        
 def main():
     global game_speed, x_pos_bg, y_pos_bg, points, obstacles 
     run = True
@@ -297,55 +303,55 @@ def main():
         clock.tick(30)
         pygame.display.update()
     def menu(death_count):
-    global points
-    global FONT_COLOR
-    run = True
-    while run:
-        current_time = datetime.datetime.now().hour
-        if 7 < current_time < 19:
-            FONT_COLOR=(0,0,0)
-            SCREEN.fill((255, 255, 255))
-        else:
-            FONT_COLOR=(255,255,255)
-            SCREEN.fill((128, 128, 128))
-        font = pygame.font.Font("freesansbold.ttf", 30)
+        global points
+        global FONT_COLOR
+        run = True
+        while run:
+            current_time = datetime.datetime.now().hour
+            if 7 < current_time < 19:
+                FONT_COLOR=(0,0,0)
+                SCREEN.fill((255, 255, 255))
+            else:
+                FONT_COLOR=(255,255,255)
+                SCREEN.fill((128, 128, 128))
+            font = pygame.font.Font("freesansbold.ttf", 30)
 
-        if death_count == 0:
-            text = font.render("Press any Key to Start", True, FONT_COLOR)
-        elif death_count > 0:
-            text = font.render("Press any Key to Restart", True, FONT_COLOR)
-            score = font.render("Your Score: " + str(points), True, FONT_COLOR)
-            scoreRect = score.get_rect()
-            scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
-            SCREEN.blit(score, scoreRect)
-            f = open("score.txt", "a")
-            f.write(str(points) + "\n")
-            f.close()
-            with open("score.txt", "r") as f:
-                score = (
-                    f.read()
-                )  # Read all file in case values are not on a single line
-                score_ints = [int(x) for x in score.split()]  # Convert strings to ints
-            highscore = max(score_ints)  # sum all elements of the list
-            hs_score_text = font.render(
-                "High Score : " + str(highscore), True, FONT_COLOR
-            )
-            hs_score_rect = hs_score_text.get_rect()
-            hs_score_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
-            SCREEN.blit(hs_score_text, hs_score_rect)
-        textRect = text.get_rect()
-        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
-        SCREEN.blit(text, textRect)
-        SCREEN.blit(RUNNING[0], (SCREEN_WIDTH // 2 - 20, SCREEN_HEIGHT // 2 - 140))
-        pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                pygame.display.quit()
-                pygame.quit()
-                exit()
-            if event.type == pygame.KEYDOWN:
-                main()
+            if death_count == 0:
+                text = font.render("Press any Key to Start", True, FONT_COLOR)
+            elif death_count > 0:
+                text = font.render("Press any Key to Restart", True, FONT_COLOR)
+                score = font.render("Your Score: " + str(points), True, FONT_COLOR)
+                scoreRect = score.get_rect()
+                scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+                SCREEN.blit(score, scoreRect)
+                f = open("score.txt", "a")
+                f.write(str(points) + "\n")
+                f.close()
+                with open("score.txt", "r") as f:
+                    score = (
+                        f.read()
+                    )  # Read all file in case values are not on a single line
+                    score_ints = [int(x) for x in score.split()]  # Convert strings to ints
+                highscore = max(score_ints)  # sum all elements of the list
+                hs_score_text = font.render(
+                    "High Score : " + str(highscore), True, FONT_COLOR
+                )
+                hs_score_rect = hs_score_text.get_rect()
+                hs_score_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
+                SCREEN.blit(hs_score_text, hs_score_rect)
+            textRect = text.get_rect()
+            textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+            SCREEN.blit(text, textRect)
+            SCREEN.blit(RUNNING[0], (SCREEN_WIDTH // 2 - 20, SCREEN_HEIGHT // 2 - 140))
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                    pygame.display.quit()
+                    pygame.quit()
+                    exit()
+                if event.type == pygame.KEYDOWN:
+                    main()
 
 
 t1 = threading.Thread(target=menu(death_count=0), daemon=True)
