@@ -212,7 +212,6 @@ def main():
     death_count = 0
     pause = False    
 
-    #score
     def score():
         global points, game_speed
         points += 1
@@ -229,7 +228,6 @@ def main():
         textRect.center = (900, 40)
         SCREEN.blit(text, textRect)
 
-    #background
     def background():
         global x_pos_bg, y_pos_bg
         image_width = BG.get_width()
@@ -239,14 +237,12 @@ def main():
             SCREEN.blit(BG, (image_width + x_pos_bg, y_pos_bg))
             x_pos_bg = 0
         x_pos_bg -= game_speed
-        
-    ###obstacles###
+
     def unpause():
         nonlocal pause, run
         pause = False
         run = True
     
-    ###pause###
     def paused():
         nonlocal pause
         pause = True
@@ -264,6 +260,7 @@ def main():
                     quit()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_u:
                     unpause()
+
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -297,6 +294,7 @@ def main():
                 pygame.time.delay(2000)
                 death_count += 1
                 menu(death_count)
+                
         background()
 
         cloud.draw(SCREEN)
