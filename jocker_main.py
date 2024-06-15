@@ -198,7 +198,7 @@ class SmallCactus(Obstacle):
         self.rect.y = 325
         
 def main():
-    global game_speed, x_pos_bg, y_pos_bg, points, obstacles 
+    global game_speed, x_pos_bg, y_pos_bg, points, obstacles, highscore
     run = True
     clock = pygame.time.Clock()
     player = Dinosaur()
@@ -210,7 +210,7 @@ def main():
     font = pygame.font.Font("freesansbold.ttf", 20)
     obstacles = []
     death_count = 0
-    pause = False    
+    pause = False
 
     def score():
         global points, game_speed
@@ -218,12 +218,10 @@ def main():
         if points % 100 == 0:
             game_speed += 1
         current_time = datetime.datetime.now().hour
-        with open("score.txt", "r") as f:
-            score_ints = [int(x) for x in f.read().split()]  
-            highscore = max(score_ints)
-            if points > highscore:
-                highscore=points 
-            text = font.render("High Score: "+ str(highscore) + "  Points: " + str(points), True, FONT_COLOR)
+        if points > highscore:
+            highscore = points
+        
+        text = font.render("High Score: "+ str(highscore) + "  Points: " + str(points), True, FONT_COLOR)
         textRect = text.get_rect()
         textRect.center = (900, 40)
         SCREEN.blit(text, textRect)
@@ -307,8 +305,9 @@ def main():
         
         
 def menu(death_count):
-    global points
+    global points, highscore
     global FONT_COLOR
+    highscore = 0
     run = True
     while run:
         current_time = datetime.datetime.now().hour
@@ -328,15 +327,9 @@ def menu(death_count):
             scoreRect = score.get_rect()
             scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
             SCREEN.blit(score, scoreRect)
-            f = open("score.txt", "a")
-            f.write(str(points) + "\n")
-            f.close()
-            with open("score.txt", "r") as f:
-                score = (
-                    f.read()
-                )  # Read all file in case values are not on a single line
-                score_ints = [int(x) for x in score.split()]  # Convert strings to ints
-            highscore = max(score_ints)  # sum all elements of the list
+            if points > highscore:
+                highscore = points
+                
             hs_score_text = font.render(
                 "High Score : " + str(highscore), True, FONT_COLOR
             )
