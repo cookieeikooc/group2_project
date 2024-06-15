@@ -220,4 +220,14 @@ def main():
         textRect = text.get_rect()
         textRect.center = (900, 40)
         SCREEN.blit(text, textRect)
+    ###background###
+    def background():
+        global x_pos_bg, y_pos_bg
+        image_width = BG.get_width()
+        SCREEN.blit(BG, (x_pos_bg, y_pos_bg))
+        SCREEN.blit(BG, (image_width + x_pos_bg, y_pos_bg))
+        if x_pos_bg <= -image_width:
+            SCREEN.blit(BG, (image_width + x_pos_bg, y_pos_bg))
+            x_pos_bg = 0
+        x_pos_bg -= game_speed
 
