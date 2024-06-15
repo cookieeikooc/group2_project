@@ -254,4 +254,37 @@ def main():
                     quit()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_u:
                     unpause()
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+                run = False
+                paused()
+
+        current_time = datetime.datetime.now().hour
+        if 7 < current_time < 19:
+            SCREEN.fill((255, 255, 255))
+        else:
+            SCREEN.fill((0, 0, 0))
+        userInput = pygame.key.get_pressed()
+
+        player.draw(SCREEN)
+        player.update(userInput)
+
+        if len(obstacles) == 0:
+            if random.randint(0, 2) == 0:
+                obstacles.append(SmallCactus(SMALL_CACTUS))
+            elif random.randint(0, 2) == 1:
+                obstacles.append(LargeCactus(LARGE_CACTUS))
+            elif random.randint(0, 2) == 2:
+                obstacles.append(Bird(BIRD))
+
+        for obstacle in obstacles:
+            obstacle.draw(SCREEN)
+            obstacle.update()
+            if player.dino_rect.colliderect(obstacle.rect):
+                pygame.time.delay(2000)
+                death_count += 1
+                menu(death_count)
 
