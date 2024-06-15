@@ -254,3 +254,4 @@ def main():
                     quit()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_u:
                     unpause()
+
