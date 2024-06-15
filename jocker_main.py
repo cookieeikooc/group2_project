@@ -212,7 +212,7 @@ def main():
     death_count = 0
     pause = False    
 
-    ###score###
+    #score
     def score():
         global points, game_speed
         points += 1
@@ -228,7 +228,8 @@ def main():
         textRect = text.get_rect()
         textRect.center = (900, 40)
         SCREEN.blit(text, textRect)
-    ###background###
+
+    #background
     def background():
         global x_pos_bg, y_pos_bg
         image_width = BG.get_width()
@@ -238,6 +239,7 @@ def main():
             SCREEN.blit(BG, (image_width + x_pos_bg, y_pos_bg))
             x_pos_bg = 0
         x_pos_bg -= game_speed
+        
     ###obstacles###
     def unpause():
         nonlocal pause, run
