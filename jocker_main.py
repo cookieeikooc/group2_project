@@ -287,4 +287,13 @@ def main():
                 pygame.time.delay(2000)
                 death_count += 1
                 menu(death_count)
+        background()
+
+        cloud.draw(SCREEN)
+        cloud.update()
+
+        score()
+
+        clock.tick(30)
+        pygame.display.update()
 
