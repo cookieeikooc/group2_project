@@ -331,3 +331,22 @@ def main():
                 "High Score : " + str(highscore), True, FONT_COLOR
             )
             hs_score_rect = hs_score_text.get_rect()
+            hs_score_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
+            SCREEN.blit(hs_score_text, hs_score_rect)
+        textRect = text.get_rect()
+        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        SCREEN.blit(text, textRect)
+        SCREEN.blit(RUNNING[0], (SCREEN_WIDTH // 2 - 20, SCREEN_HEIGHT // 2 - 140))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.display.quit()
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN:
+                main()
+
+
+t1 = threading.Thread(target=menu(death_count=0), daemon=True)
+t1.start()
