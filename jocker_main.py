@@ -12,7 +12,7 @@ SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-pygame.display.set_caption("I am Jocker")
+pygame.display.set_caption("I am a Jocker")
 
 ### Load IMG ###
 #Icon
