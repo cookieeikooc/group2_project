@@ -169,7 +169,7 @@ class Cloud:
         
 ### Bird ###
 class Bird(Obstacle):
-    BIRD_HEIGHTS = [250, 290, 320]
+    BIRD_HEIGHTS = [200, 250, 320]
 
     def __init__(self, image):
         self.type = 0
