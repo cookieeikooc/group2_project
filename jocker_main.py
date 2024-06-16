@@ -310,8 +310,9 @@ def menu(death_count):
     global FONT_COLOR
     run = True
     while run:
-        current_time = datetime.datetime.now().hour
-        if 7 < current_time < 19:
+        current_time = datetime.datetime.now().second
+        round_current_time = current_time % 47
+        if 23 < round_current_time < 46:
             FONT_COLOR=(255, 255, 255)
             SCREEN.fill((0, 0, 0))
         else:
