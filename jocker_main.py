@@ -56,7 +56,7 @@ CLOUD = pygame.image.load(os.path.join("assets/Other", "Cloud.png"))
 #Backgound
 BG = pygame.image.load(os.path.join("assets/Other", "Track.png"))
 
-FONT_COLOR=(0,0,0)
+FONT_COLOR=(255,255,255)
 
 
 ### Dino ###
@@ -269,9 +269,9 @@ def main():
 
         current_time = datetime.datetime.now().hour
         if 7 < current_time < 19:
-            SCREEN.fill((255, 255, 255))
-        else:
             SCREEN.fill((0, 0, 0))
+        else:
+            SCREEN.fill((255, 255, 255))
         userInput = pygame.key.get_pressed()
 
         player.draw(SCREEN)
@@ -312,11 +312,11 @@ def menu(death_count):
     while run:
         current_time = datetime.datetime.now().hour
         if 7 < current_time < 19:
-            FONT_COLOR=(0,0,0)
-            SCREEN.fill((255, 255, 255))
+            FONT_COLOR=(255, 255, 255)
+            SCREEN.fill((0, 0, 0))
         else:
-            FONT_COLOR=(255,255,255)
-            SCREEN.fill((128, 128, 128))
+            FONT_COLOR=(0, 0, 0)
+            SCREEN.fill((255, 255, 255))
         font = pygame.font.Font("freesansbold.ttf", 30)
 
         if death_count == 0:
