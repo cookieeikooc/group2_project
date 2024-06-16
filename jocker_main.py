@@ -213,7 +213,7 @@ def main():
     pause = False
 
     def score():
-        global points, game_speed
+        global points, game_speed, highscore
         points += 1
         if points % 100 == 0:
             game_speed += 1
