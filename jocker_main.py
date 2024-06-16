@@ -307,7 +307,6 @@ def main():
 def menu(death_count):
     global points, highscore
     global FONT_COLOR
-    highscore = 0
     run = True
     while run:
         current_time = datetime.datetime.now().hour
@@ -320,6 +319,7 @@ def menu(death_count):
         font = pygame.font.Font("freesansbold.ttf", 30)
 
         if death_count == 0:
+            highscore = 0
             text = font.render("Press any Key to Start", True, FONT_COLOR)
         elif death_count > 0:
             text = font.render("Press any Key to Restart", True, FONT_COLOR)
