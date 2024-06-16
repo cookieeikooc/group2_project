@@ -56,7 +56,7 @@ CLOUD = pygame.image.load(os.path.join("assets/Other", "Cloud.png"))
 #Backgound
 BG = pygame.image.load(os.path.join("assets/Other", "Track.png"))
 
-FONT_COLOR=(255,255,255)
+FONT_COLOR=(128,128,128)
 
 
 ### Dino ###
@@ -267,8 +267,9 @@ def main():
                 run = False
                 paused()
 
-        current_time = datetime.datetime.now().hour
-        if 7 < current_time < 19:
+        current_time = datetime.datetime.now().second
+        round_current_time = current_time % 47
+        if 23 < round_current_time < 46:
             SCREEN.fill((0, 0, 0))
         else:
             SCREEN.fill((255, 255, 255))
