@@ -310,14 +310,8 @@ def menu(death_count):
     global FONT_COLOR
     run = True
     while run:
-        current_time = datetime.datetime.now().second
-        round_current_time = current_time % 47
-        if 23 < round_current_time < 46:
-            FONT_COLOR=(255, 255, 255)
-            SCREEN.fill((0, 0, 0))
-        else:
-            FONT_COLOR=(0, 0, 0)
-            SCREEN.fill((255, 255, 255))
+        FONT_COLOR=(0, 0, 0)
+        SCREEN.fill((255, 255, 255))
         font = pygame.font.Font("freesansbold.ttf", 30)
 
         if death_count == 0:
