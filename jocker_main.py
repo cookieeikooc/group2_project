@@ -12,46 +12,46 @@ SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-pygame.display.set_caption("I am a Jocker")
+pygame.display.set_caption("I am a Joker")
 
 ### Load IMG ###
 #Icon
-Icon = pygame.image.load("assets/DinoWallpaper.png")
+Icon = pygame.image.load("assets/Wallpaper.png")
 pygame.display.set_icon(Icon)
 
 #Runing animation
 RUNNING = [
-    pygame.image.load(os.path.join("assets/Dino", "DinoRun1.png")),
-    pygame.image.load(os.path.join("assets/Dino", "DinoRun2.png")),
+    pygame.image.load(os.path.join("assets/Joker", "JokerRun1.png")),
+    pygame.image.load(os.path.join("assets/Joker", "JokerRun2.png")),
 ]
 #Jumping animation
-JUMPING = pygame.image.load(os.path.join("assets/Dino", "DinoJump.png"))
+JUMPING = pygame.image.load(os.path.join("assets/Joker", "JokerJump.png"))
 #Ducking animation
 DUCKING = [
-    pygame.image.load(os.path.join("assets/Dino", "DinoDuck1.png")),
-    pygame.image.load(os.path.join("assets/Dino", "DinoDuck2.png")),
+    pygame.image.load(os.path.join("assets/Joker", "JokerDuck1.png")),
+    pygame.image.load(os.path.join("assets/Joker", "JokerDuck2.png")),
 ]
 
 #Ground Obstacles
-SMALL_CACTUS = [
-    pygame.image.load(os.path.join("assets/Cactus", "SmallCactus1.png")),
-    pygame.image.load(os.path.join("assets/Cactus", "SmallCactus2.png")),
-    pygame.image.load(os.path.join("assets/Cactus", "SmallCactus3.png")),
+SMALL_BOOK = [
+    pygame.image.load(os.path.join("assets/Book", "SmallBook1.png")),
+    pygame.image.load(os.path.join("assets/Book", "SmallBook2.png")),
+    pygame.image.load(os.path.join("assets/Book", "SmallBook3.png")),
 ]
-LARGE_CACTUS = [
-    pygame.image.load(os.path.join("assets/Cactus", "LargeCactus1.png")),
-    pygame.image.load(os.path.join("assets/Cactus", "LargeCactus2.png")),
-    pygame.image.load(os.path.join("assets/Cactus", "LargeCactus3.png")),
+LARGE_BOOK = [
+    pygame.image.load(os.path.join("assets/Book", "LargeBook1.png")),
+    pygame.image.load(os.path.join("assets/Book", "LargeBook2.png")),
+    pygame.image.load(os.path.join("assets/Book", "LargeBook3.png")),
 ]
 
 #Sky Obstacles
-BIRD = [
-    pygame.image.load(os.path.join("assets/Bird", "Bird1.png")),
-    pygame.image.load(os.path.join("assets/Bird", "Bird2.png")),
+GPA = [
+    pygame.image.load(os.path.join("assets/GPA", "GPA1.png")),
+    pygame.image.load(os.path.join("assets/GPA", "GPA2.png")),
 ]
 
-#Cloud
-CLOUD = pygame.image.load(os.path.join("assets/Other", "Cloud.png"))
+#W for win
+W = pygame.image.load(os.path.join("assets/Other", "W.png"))
 
 #Backgound
 BG = pygame.image.load(os.path.join("assets/Other", "Track.png"))
@@ -59,8 +59,8 @@ BG = pygame.image.load(os.path.join("assets/Other", "Track.png"))
 FONT_COLOR=(128,128,128)
 
 
-### Dino ###
-class Dinosaur:
+### Joker ###
+class Joker:
     X_POS = 80
     Y_POS = 310
     Y_POS_DUCK = 340
@@ -71,67 +71,67 @@ class Dinosaur:
         self.run_img = RUNNING
         self.jump_img = JUMPING
 
-        self.dino_duck = False
-        self.dino_run = True
-        self.dino_jump = False
+        self.joker_duck = False
+        self.joker_run = True
+        self.joker_jump = False
 
         self.step_index = 0
         self.jump_vel = self.JUMP_VEL
         self.image = self.run_img[0]
-        self.dino_rect = self.image.get_rect()
-        self.dino_rect.x = self.X_POS
-        self.dino_rect.y = self.Y_POS
+        self.joker_rect = self.image.get_rect()
+        self.joker_rect.x = self.X_POS
+        self.joker_rect.y = self.Y_POS
     
     #State
     def update(self, userInput):
-        if self.dino_duck:
+        if self.joker_duck:
             self.duck()
-        if self.dino_run:
+        if self.joker_run:
             self.run()
-        if self.dino_jump:
+        if self.joker_jump:
             self.jump()
 
         if self.step_index >= 10:
             self.step_index = 0
 
-        if (userInput[pygame.K_UP] or userInput[pygame.K_SPACE]) and not self.dino_jump:
-            self.dino_duck = False
-            self.dino_run = False
-            self.dino_jump = True
-        elif userInput[pygame.K_DOWN] and not self.dino_jump:
-            self.dino_duck = True
-            self.dino_run = False
-            self.dino_jump = False
-        elif not (self.dino_jump or userInput[pygame.K_DOWN]):
-            self.dino_duck = False
-            self.dino_run = True
-            self.dino_jump = False
+        if (userInput[pygame.K_UP] or userInput[pygame.K_SPACE]) and not self.joker_jump:
+            self.joker_duck = False
+            self.joker_run = False
+            self.joker_jump = True
+        elif userInput[pygame.K_DOWN] and not self.joker_jump:
+            self.joker_duck = True
+            self.joker_run = False
+            self.joker_jump = False
+        elif not (self.joker_jump or userInput[pygame.K_DOWN]):
+            self.joker_duck = False
+            self.joker_run = True
+            self.joker_jump = False
           
     def run(self):
         self.image = self.run_img[self.step_index // 5]
-        self.dino_rect = self.image.get_rect()
-        self.dino_rect.x = self.X_POS
-        self.dino_rect.y = self.Y_POS
+        self.joker_rect = self.image.get_rect()
+        self.joker_rect.x = self.X_POS
+        self.joker_rect.y = self.Y_POS
         self.step_index += 1
       
     def jump(self):
         self.image = self.jump_img
-        if self.dino_jump:
-            self.dino_rect.y -= self.jump_vel * 4
+        if self.joker_jump:
+            self.joker_rect.y -= self.jump_vel * 4
             self.jump_vel -= 0.8
         if self.jump_vel < -self.JUMP_VEL:
-            self.dino_jump = False
+            self.joker_jump = False
             self.jump_vel = self.JUMP_VEL
       
     def duck(self):
         self.image = self.duck_img[self.step_index // 5]
-        self.dino_rect = self.image.get_rect()
-        self.dino_rect.x = self.X_POS
-        self.dino_rect.y = self.Y_POS_DUCK
+        self.joker_rect = self.image.get_rect()
+        self.joker_rect.x = self.X_POS
+        self.joker_rect.y = self.Y_POS_DUCK
         self.step_index += 1
             
     def draw(self, SCREEN):
-        SCREEN.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
+        SCREEN.blit(self.image, (self.joker_rect.x, self.joker_rect.y))
         
         
 ### Obstacles ###
@@ -150,12 +150,12 @@ class Obstacle:
     def draw(self, SCREEN):
         SCREEN.blit(self.image[self.type], self.rect)
         
-### Clouds ###
-class Cloud:
+### W ###
+class WforWin:
     def __init__(self):
         self.x = SCREEN_WIDTH + random.randint(800, 1000)
         self.y = random.randint(50, 100)
-        self.image = CLOUD
+        self.image = W
         self.width = self.image.get_width()
         
     def update(self):
@@ -167,14 +167,14 @@ class Cloud:
     def draw(self, SCREEN):
         SCREEN.blit(self.image, (self.x, self.y)) 
         
-### Bird ###
-class Bird(Obstacle):
-    BIRD_HEIGHTS = [200, 250, 320]
+### GPA ###
+class Gpa(Obstacle):
+    GPA_HEIGHTS = [200, 250, 320]
 
     def __init__(self, image):
         self.type = 0
         super().__init__(image, self.type)
-        self.rect.y = random.choice(self.BIRD_HEIGHTS)
+        self.rect.y = random.choice(self.GPA_HEIGHTS)
         self.index = 0
 
     def draw(self, SCREEN):
@@ -184,14 +184,14 @@ class Bird(Obstacle):
         self.index += 1
 
 ### LargeObs ###
-class LargeCactus(Obstacle):
+class LargeBook(Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
         self.rect.y = 300
         
 ### SmallObs ###
-class SmallCactus(Obstacle):
+class SmallBook(Obstacle):
     def __init__(self, image):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type)
@@ -201,8 +201,8 @@ def main():
     global game_speed, x_pos_bg, y_pos_bg, points, obstacles, highscore
     run = True
     clock = pygame.time.Clock()
-    player = Dinosaur()
-    cloud = Cloud()
+    player = Joker()
+    w = WforWin()
     game_speed = 20
     x_pos_bg = 0
     y_pos_bg = 380
@@ -280,24 +280,24 @@ def main():
 
         if len(obstacles) == 0:
             if random.randint(0, 2) == 0:
-                obstacles.append(SmallCactus(SMALL_CACTUS))
+                obstacles.append(SmallBook(SMALL_BOOK))
             elif random.randint(0, 2) == 1:
-                obstacles.append(LargeCactus(LARGE_CACTUS))
+                obstacles.append(LargeBook(LARGE_BOOK))
             elif random.randint(0, 2) == 2:
-                obstacles.append(Bird(BIRD))
+                obstacles.append(Gpa(GPA))
 
         for obstacle in obstacles:
             obstacle.draw(SCREEN)
             obstacle.update()
-            if player.dino_rect.colliderect(obstacle.rect):
+            if player.joker_rect.colliderect(obstacle.rect):
                 pygame.time.delay(2000)
                 death_count += 1
                 menu(death_count)
 
         background()
 
-        cloud.draw(SCREEN)
-        cloud.update()
+        w.draw(SCREEN)
+        w.update()
 
         score()
 
